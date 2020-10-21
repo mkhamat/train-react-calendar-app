@@ -1,10 +1,24 @@
 import React, {useEffect} from "react";
 import axios from 'axios'
 
-type calendarProps = {
-    year: number,
-    calendar: object[][] | null,
-    setCalendar: (calendar: object[][]) => void
+export type Day = {
+  month: string;
+  day: number;
+  current: boolean;
+  currentMonth: boolean;
+  weekday: string;
+  tasks: string | null;
+};
+
+export default function Calendar({ calendar }: { calendar: Day[][] | null }) {
+  return (
+    <div className={"calendar-container"}>
+      {calendar &&
+        calendar.map((m, i) => {
+          return <Month key={`${i}${m[i].month}`} month={m} />;
+        })}
+    </div>
+  );
 }
 
 export default function Calendar({year}: calendarProps) {
