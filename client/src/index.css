@@ -1,13 +1,53 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.calendar-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 700px;
+  margin: auto;
+}
+
+.day {
+  margin: 0.2rem;
+  padding: 0.2rem;
+  text-align: center;
+  font-size: 14px;
+  width: 16px;
+  display: inline-block;
+  position: relative;
+}
+
+.weekday {
+  font-size: 8px;
+  position: absolute;
+  top: -70%;
+  right: 0;
+  left: 0;
+}
+
+.year {
+  color: red;
+  margin-left: 2rem;
+}
+
+.current {
+  color: white;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.current-month {
+  color: red;
 }
