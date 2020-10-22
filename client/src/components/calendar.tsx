@@ -1,5 +1,4 @@
-import React, {useEffect} from "react";
-import axios from 'axios'
+import React from "react";
 
 export type Day = {
   month: string;
@@ -21,14 +20,23 @@ export default function Calendar({ calendar }: { calendar: Day[][] | null }) {
   );
 }
 
-export default function Calendar({year}: calendarProps) {
-    useEffect(() => {
+function Month({ month }: { month: Day[] }) {
+  return (
+    <div className={"month-container"}>
+      <h3 className={`${month[7].currentMonth ? 'current-month' : ''}`} >{month[1].month}</h3>
+      {month.map((d, i) => {
+        return <Days key={`${i}${d.month}${d.weekday}${d.day}`} d={d} />;
+      })}
+    </div>
+  );
+}
 
-    })
-    axios.get(`http://localhost:3000/${year}`).then(res => {
-        console.log(res.data)
-    })
-    return (
-        <h1>HI</h1>
-    )
+function Days({ d }: { d: Day }) {
+  let current = d.current;
+  return (
+    <>
+      <div className={`day ${current ? "current" : ""}`}>{d.day}</div>
+      {d.weekday === "Sun" && <br />}
+    </>
+  );
 }
