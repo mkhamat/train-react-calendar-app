@@ -11,13 +11,7 @@ function App() {
       setCalendar(res.data);
     });
   }, [currentYear]);
-  return (
-    <>
-      <h1 className={"year"}>{currentYear}</h1>
-      <hr />
-      <Calendar calendar={calendar} />
-    </>
-  );
+  return <Calendar year={currentYear} calendar={calendar} />;
 }
 
 export default App;
