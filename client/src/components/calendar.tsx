@@ -104,9 +104,6 @@ function Month({
         {month[1].month}
       </h3>
       {days}
-      {/*{month.map((d, i) => {*/}
-      {/*  return <Days key={`${i}${d.month}${d.weekday}${d.day}`} d={d} />;*/}
-      {/*})}*/}
     </div>
   );
 }
@@ -117,10 +114,10 @@ function Days({ d, selected }: { d: Day; selected?: boolean }) {
     <>
       <div
         className={`${selected ? "day-selected" : "day"} ${
-          current ? "current" : ""
-        } ${d.weekday === "Sat" || d.weekday === "Sun" ? "wknd" : ""}`}
+          d.weekday === "Sat" || d.weekday === "Sun" ? "wknd" : ""
+        }`}
       >
-        {d.day}
+        <span className={current ? "current" : ""}>{d.day}</span>
       </div>
       {d.weekday === "Sun" && <br />}
     </>
