@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export type Day = {
   month: string;
@@ -9,33 +9,119 @@ export type Day = {
   tasks: string | null;
 };
 
-export default function Calendar({ calendar }: { calendar: Day[][] | null }) {
+export default function Calendar({
+  calendar,
+  year,
+}: {
+  calendar: Day[][] | null;
+  year: number;
+}) {
+  const [selectedMonth, setSelectedMonth] = useState<Day[] | null>(null);
+  if (selectedMonth) {
+    return (
+      <Month
+        selected={true}
+        month={selectedMonth}
+        set={setSelectedMonth}
+        year={year}
+      />
+    );
+  }
   return (
-    <div className={"calendar-container"}>
-      {calendar &&
-        calendar.map((m, i) => {
-          return <Month key={`${i}${m[i].month}`} month={m} />;
-        })}
+    <>
+      <h1 className={"year"}>{year}</h1>
+      <hr />
+      <div className={"calendar-container"}>
+        {calendar &&
+          calendar.map((m, i) => {
+            return (
+              <Month
+                key={`${i}${m[i].month}`}
+                month={m}
+                set={setSelectedMonth}
+              />
+            );
+          })}
+      </div>
+    </>
+  );
+}
+
+function Month({
+  month,
+  set,
+  year,
+  selected,
+}: {
+  month: Day[];
+  set: React.Dispatch<React.SetStateAction<Day[] | null>>;
+  year?: number;
+  selected?: boolean;
+}) {
+  let days = month.map((d, i) => {
+    return (
+      <Days
+        selected={selected}
+        key={`${i}${d.month}${d.weekday}${d.day}`}
+        d={d}
+      />
+    );
+  });
+
+  function handleSelection() {
+    set(month);
+  }
+
+  function handleBack() {
+    set(null);
+  }
+
+  if (selected) {
+    return (
+      <>
+        <h1 className={"year"}>
+          <button onClick={handleBack}>back</button>
+          {`${month[1].month} ${year}`}
+        </h1>
+        <div className="weekday">
+          <div>M</div>
+          <div>T</div>
+          <div>W</div>
+          <div>T</div>
+          <div>F</div>
+          <div className={"wknd"}>S</div>
+          <div className={"wknd"}>S</div>
+        </div>
+        <hr />
+        <div className="month-container-selected">{days}</div>
+      </>
+    );
+  }
+
+  return (
+    <div onClick={handleSelection} className={"month-container"}>
+      <h3 className={`${month[7].currentMonth ? "current-month" : ""}`}>
+        {month[1].month}
+      </h3>
+      {days}
+      {/*{month.map((d, i) => {*/}
+      {/*  return <Days key={`${i}${d.month}${d.weekday}${d.day}`} d={d} />;*/}
+      {/*})}*/}
     </div>
   );
 }
 
-function Month({ month }: { month: Day[] }) {
-  return (
-    <div className={"month-container"}>
-      <h3 className={`${month[7].currentMonth ? 'current-month' : ''}`} >{month[1].month}</h3>
-      {month.map((d, i) => {
-        return <Days key={`${i}${d.month}${d.weekday}${d.day}`} d={d} />;
-      })}
-    </div>
-  );
-}
-
-function Days({ d }: { d: Day }) {
+function Days({ d, selected }: { d: Day; selected?: boolean }) {
   let current = d.current;
   return (
     <>
-      <div className={`day ${current ? "current" : ""}`}>{d.day}</div>
+      <div
+        className={`${selected ? "day-selected" : "day"} ${
+          current ? "current" : ""
+        } ${d.weekday === "Sat" || d.weekday === "Sun" ? "wknd" : ""}`}
+      >
+        {d.day}
+      </div>
       {d.weekday === "Sun" && <br />}
     </>
   );
