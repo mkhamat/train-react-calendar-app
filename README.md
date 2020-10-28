@@ -8,6 +8,6 @@ Calendar replicates the look and little of feel of iOS calendar.
 ![Alt Text](https://github.com/mkhamat/train-react-calendar-app/blob/master/demo.gif)
 
 ## TODO'S:
-[] Scrolling or switching to another year/month
-[] Adding tasks
-[] Improve animations
+-[] Scrolling or switching to another year/month
+-[] Adding tasks
+-[] Improve animations
