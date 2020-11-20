@@ -80,8 +80,7 @@ function Month({
     return (
       <>
         <h1 className={"year"}>
-          <button onClick={handleBack}>back</button>
-          {`${month[1].month} ${year}`}
+          <span onClick={handleBack}>{`${month[1].month} ${year}`}</span>
         </h1>
         <div className="weekday">
           <div>M</div>
