@@ -14,4 +14,4 @@ Calendar replicates the look and little of feel of iOS calendar.
 
 - [ ] Scrolling or switching to another year/month
 - [ ] Adding tasks
-- [ ] Improve animations
+- [x] Improve animations
