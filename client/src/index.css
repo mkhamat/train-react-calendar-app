@@ -16,8 +16,7 @@ code {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   width: 700px;
-  margin: auto;
-  animation: zoom-out 0.3s;
+  margin: 1rem auto;
   transition: ease 0.5s;
 }
 
@@ -33,7 +32,7 @@ code {
 .month-container-selected {
   width: 600px;
   margin: auto;
-  animation: zoom-in 0.3s;
+  animation: zoom-out 0.4s;
 }
 
 .day {
@@ -95,26 +94,26 @@ code {
 }
 
 .current {
-  color: white;
-  background-color: red;
-  border-radius: 50%;
-  padding: 4px;
+  color: red;
+  font-weight: bold;
 }
 
 @keyframes zoom-in {
   from {
-    transform: scale3d(0, 0, 0);
   }
   to {
-    transform: scale3d(1, 1, 1);
+    transform: scale3d(3, 3, 3) translate(-30%, 30%);
+    /* opacity: 0; */
   }
 }
 
 @keyframes zoom-out {
   from {
-    transform: scale3d(1.5, 1.5, 1.5);
+    transform: scale3d(0.9, 0.9, 0.9);
+    opacity: 0;
   }
   to {
     transform: scale3d(1, 1, 1);
+    opacity: 1;
   }
 }
