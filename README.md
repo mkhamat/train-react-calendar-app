@@ -8,7 +8,7 @@ This project is for training purposes only and my first attempt to write somethi
 
 Calendar replicates the look and little of feel of iOS calendar.
 
-![](demo.gif)
+![](newDemo.gif)
 
 ## TODO'S:
 
