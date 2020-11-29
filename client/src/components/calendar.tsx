@@ -15,7 +15,7 @@ const CalendarContainer = styled.div<{ anim: any; reverse: boolean }>`
   grid-template-columns: repeat(3, 1fr);
   width: 700px;
   margin: 1rem auto;
-  animation: ${(props: any) => props.anim} 0.4s
+  animation: ${(props: any) => props.anim} 0.6s
     ${(props: any) => props.reverse && "reverse"};
 `
 
@@ -55,7 +55,7 @@ export default function Calendar({
               }
       to {
         transform: scale3d(3, 3, 3) translate(${chart[i].x}%, ${chart[i].y}%);
-        opacity: 0;
+        opacity: .5;
   } `
   }
 
@@ -149,7 +149,7 @@ function Month({
           set(back ? null : month)
           // setKeyfs && setKeyfs(null)
         },
-        back ? 0 : 400
+        back ? 0 : 600
       )
     }
   }
