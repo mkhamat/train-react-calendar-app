@@ -1,5 +1,6 @@
 import React, { Dispatch, Props, SetStateAction, useState } from "react"
 import styled, { Keyframes, keyframes } from "styled-components"
+import MenuBar from "./menuBar"
 
 export type Day = {
   month: string
@@ -13,8 +14,9 @@ export type Day = {
 const CalendarContainer = styled.div<{ anim: any; reverse: boolean }>`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  position: relative;
   width: 700px;
-  margin: 1rem auto;
+  margin: 1rem auto 4rem auto;
   animation: ${(props: any) => props.anim} 0.6s
     ${(props: any) => props.reverse && "reverse"};
 `
@@ -22,9 +24,11 @@ const CalendarContainer = styled.div<{ anim: any; reverse: boolean }>`
 export default function Calendar({
   calendar,
   year,
+  setYear,
 }: {
   calendar: Day[][] | null
   year: number
+  setYear: React.Dispatch<React.SetStateAction<number>>
 }) {
   const [selectedMonth, setSelectedMonth] = useState<Day[] | null>(null)
   const [keyfs, setKeyfs] = useState<Keyframes | null>(null)
@@ -37,15 +41,15 @@ export default function Calendar({
       { x: 30, y: 30 },
       { x: 0, y: 30 },
       { x: -30, y: 30 },
-      { x: 30, y: 0 },
-      { x: 0, y: 0 },
-      { x: -30, y: 0 },
+      { x: 30, y: 5 },
+      { x: 0, y: 5 },
+      { x: -30, y: 5 },
       { x: 30, y: -20 },
       { x: 0, y: -20 },
       { x: -30, y: -20 },
-      { x: 30, y: -40 },
-      { x: 0, y: -40 },
-      { x: -30, y: -40 },
+      { x: 30, y: -35 },
+      { x: 0, y: -35 },
+      { x: -30, y: -35 },
     ]
 
     return keyframes`
@@ -66,16 +70,19 @@ export default function Calendar({
         month={selectedMonth}
         set={setSelectedMonth}
         year={year}
+        setYear={setYear}
         zoomMonth={zoomMonth}
         setKeyfs={setKeyfs}
         setReverse={setReverse}
+        calendar={calendar}
+        selectedMonth={selectedMonth}
+        setSelectedMonth={setSelectedMonth}
       />
     )
   }
   return (
     <>
       <h1 className={"year"}>{year}</h1>
-      <hr />
       <CalendarContainer anim={keyfs} reverse={reverse}>
         {calendar &&
           calendar.map((m, i) => {
@@ -87,10 +94,23 @@ export default function Calendar({
                 zoomMonth={zoomMonth}
                 setKeyfs={setKeyfs}
                 setReverse={setReverse}
+                setYear={setYear}
+                year={year}
+                calendar={calendar}
+                selectedMonth={selectedMonth}
+                setSelectedMonth={setSelectedMonth}
               />
             )
           })}
       </CalendarContainer>
+      <MenuBar
+        setYear={setYear}
+        year={year}
+        calendar={calendar}
+        selectedMonth={selectedMonth}
+        setSelectedMonth={setSelectedMonth}
+        selectedMode={false}
+      />
     </>
   )
 }
@@ -103,14 +123,22 @@ function Month({
   zoomMonth,
   setKeyfs,
   setReverse,
+  setYear,
+  calendar,
+  setSelectedMonth,
+  selectedMonth,
 }: {
   month: Day[]
   set: React.Dispatch<React.SetStateAction<Day[] | null>>
-  year?: number
+  year: number
   selected?: boolean
   zoomMonth?: (index: number) => Keyframes
   setKeyfs?: Dispatch<SetStateAction<Keyframes | null>>
   setReverse: Dispatch<SetStateAction<boolean>>
+  setYear: React.Dispatch<React.SetStateAction<number>>
+  calendar: Day[][] | null
+  setSelectedMonth: React.Dispatch<React.SetStateAction<Day[] | null>>
+  selectedMonth: Day[] | null
 }) {
   let days = month.map((d, i) => {
     return (
@@ -173,6 +201,14 @@ function Month({
         </div>
         <hr />
         <div className="month-container-selected">{days}</div>
+        <MenuBar
+          setYear={setYear}
+          year={year}
+          calendar={calendar}
+          selectedMonth={selectedMonth}
+          setSelectedMonth={setSelectedMonth}
+          selectedMode={true}
+        />
       </>
     )
   }

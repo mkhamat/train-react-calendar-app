@@ -69,6 +69,7 @@ code {
   color: red;
   margin-left: 2rem;
   cursor: pointer;
+  position: fixed;
 }
 
 .current-month {
@@ -87,6 +88,7 @@ code {
 .weekday {
   width: 600px;
   margin: auto;
+  padding-top: 5rem;
 }
 
 .wknd {
@@ -96,6 +98,12 @@ code {
 .current {
   color: red;
   font-weight: bold;
+}
+
+.current-overmode {
+  color: red;
+  font-weight: bold;
+  border-radius: 50%;
 }
 
 @keyframes zoom-in {
